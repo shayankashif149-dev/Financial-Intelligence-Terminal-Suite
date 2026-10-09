@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Financial Intelligence & Terminal Suite</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#020617',
+              900: '#0f172a',
+            },
+            aura: {
+              emerald: '#10b981',
+              gold: '#f59e0b',
+              accent: '#06b6d4',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'ticker': 'ticker 35s linear infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            ticker: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            glow: {
+              '0%': { boxShadow: '0 0 15px rgba(16, 185, 129, 0.2)' },
+              '100%': { boxShadow: '0 0 30px rgba(16, 185, 129, 0.6)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+
+    /* Pause Animation on Hover */
+    .ticker-container:hover .ticker-track {
+      animation-play-state: paused !important;
+    }
+
+    /* Premium Glassmorphism */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .brand-glow {
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    }
+  </style>
+</head>
+<body class="bg-[#020617] text-slate-100 font-sans min-h-screen flex flex-col selection:bg-emerald-500 selection:text-slate-950">
+
+  <!-- TOP INFINITE TICKER SLIDER (PAUSES ON HOVER) -->
+  <div class="ticker-container bg-slate-950/90 border-b border-slate-800/80 text-[11px] font-mono py-2.5 overflow-hidden relative cursor-pointer group z-50">
+    <div class="ticker-track flex whitespace-nowrap w-max animate-ticker">
+      
+      <!-- ITEM SET 1 -->
+      <div class="flex items-center space-x-8 px-4">
+        <span class="text-amber-400 font-semibold flex items-center gap-2"><i data-lucide="coins" class="w-3.5 h-3.5"></i> GOLD 24K: <span class="text-slate-100 font-bold">Rs. 242,500/tola</span> <span class="text-emerald-400 text-[10px] font-bold">+0.5%</span></span>
+        <span class="text-emerald-400 font-semibold flex items-center gap-2"><i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> USD/PKR: <span class="text-slate-100 font-bold">278.40</span> <span class="text-rose-400 text-[10px] font-bold">-0.05%</span></span>
+        <span class="text-blue-400 font-semibold flex items-center gap-2"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> PSX KSE-100: <span class="text-slate-100 font-bold">78,450.20</span> <span class="text-emerald-400 text-[10px] font-bold">+328.40 (+0.42%)</span></span>
+        <span class="text-rose-400 font-semibold flex items-center gap-2"><i data-lucide="fuel" class="w-3.5 h-3.5"></i> PETROL HIGH-OCTANE: <span class="text-slate-100 font-bold">Rs. 275.60/L</span></span>
+        <span class="text-purple-400 font-semibold flex items-center gap-2"><i data-lucide="globe" class="w-3.5 h-3.5"></i> EUR/PKR: <span class="text-slate-100 font-bold">302.15</span></span>
+        <span class="text-cyan-400 font-semibold flex items-center gap-2"><i data-lucide="coins" class="w-3.5 h-3.5"></i> SILVER 24K: <span class="text-slate-100 font-bold">Rs. 2,850/tola</span></span>
+        <span class="text-teal-400 font-semibold flex items-center gap-2"><i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> 6M KIBOR: <span class="text-slate-100 font-bold">19.85%</span></span>
+        <span class="text-indigo-400 font-semibold flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5"></i> BRENT CRUDE: <span class="text-slate-100 font-bold">$84.20/bbl</span></span>
+      </div>
+
+      <!-- ITEM SET 2 (DUPLICATED FOR SEAMLESS LOOP) -->
+      <div class="flex items-center space-x-8 px-4">
+        <span class="text-amber-400 font-semibold flex items-center gap-2"><i data-lucide="coins" class="w-3.5 h-3.5"></i> GOLD 24K: <span class="text-slate-100 font-bold">Rs. 242,500/tola</span> <span class="text-emerald-400 text-[10px] font-bold">+0.5%</span></span>
+        <span class="text-emerald-400 font-semibold flex items-center gap-2"><i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> USD/PKR: <span class="text-slate-100 font-bold">278.40</span> <span class="text-rose-400 text-[10px] font-bold">-0.05%</span></span>
+        <span class="text-blue-400 font-semibold flex items-center gap-2"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> PSX KSE-100: <span class="text-slate-100 font-bold">78,450.20</span> <span class="text-emerald-400 text-[10px] font-bold">+328.40 (+0.42%)</span></span>
+        <span class="text-rose-400 font-semibold flex items-center gap-2"><i data-lucide="fuel" class="w-3.5 h-3.5"></i> PETROL HIGH-OCTANE: <span class="text-slate-100 font-bold">Rs. 275.60/L</span></span>
+        <span class="text-purple-400 font-semibold flex items-center gap-2"><i data-lucide="globe" class="w-3.5 h-3.5"></i> EUR/PKR: <span class="text-slate-100 font-bold">302.15</span></span>
+        <span class="text-cyan-400 font-semibold flex items-center gap-2"><i data-lucide="coins" class="w-3.5 h-3.5"></i> SILVER 24K: <span class="text-slate-100 font-bold">Rs. 2,850/tola</span></span>
+        <span class="text-teal-400 font-semibold flex items-center gap-2"><i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> 6M KIBOR: <span class="text-slate-100 font-bold">19.85%</span></span>
+        <span class="text-indigo-400 font-semibold flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5"></i> BRENT CRUDE: <span class="text-slate-100 font-bold">$84.20/bbl</span></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MAIN HEADER / FULL PREMIUM LOGO & BRANDING -->
+  <header class="sticky top-0 z-40 bg-[#020617]/85 backdrop-blur-2xl border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO BRANDING AREA -->
+      <div class="flex items-center space-x-4 group cursor-pointer">
+        <!-- Glowing Brandmark Badge -->
+        <div class="relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 rounded-2xl blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
+          <div class="relative p-3 bg-slate-950 border border-emerald-500/30 rounded-2xl text-emerald-400 shadow-2xl flex items-center justify-center">
+            <i data-lucide="cpu" class="w-6 h-6 stroke-[2.5]"></i>
+          </div>
+        </div>
+
+        <!-- Brand Name & Tagline -->
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-2xl font-black tracking-tight text-white font-mono">PakMarket<span class="text-emerald-400">.</span></span>
+            <span class="text-[10px] font-extrabold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md">TERMINAL</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-semibold tracking-wide">Financial Intelligence Engine & Valuation Suite</p>
+        </div>
+      </div>
+
+      <!-- Action Badges & Live Status -->
+      <div class="hidden md:flex items-center space-x-4">
+        <div class="flex items-center space-x-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-xl text-xs">
+          <i data-lucide="server" class="w-4 h-4 text-emerald-400"></i>
+          <span class="text-slate-400 font-medium">SBP & FBR Feed:</span>
+          <span class="font-mono font-bold text-emerald-400">SYNCED</span>
+        </div>
+
+        <div class="flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-2 rounded-xl text-xs">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span class="font-bold text-emerald-400 tracking-wide uppercase text-[10px]">Market Active</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- HERO METRICS WIDGET BANNER -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1 -->
+      <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-amber-400 hover:scale-[1.02] transition-all duration-300 group">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest">Gold 24K (Sarafa)</span>
+          <div class="p-2 bg-amber-400/10 rounded-xl text-amber-400 group-hover:bg-amber-400 group-hover:text-slate-950 transition-colors"><i data-lucide="coins" class="w-5 h-5"></i></div>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-2xl font-mono font-black text-white">Rs. 242,500</h3>
+          <div class="flex items-center justify-between mt-1 text-[11px]">
+            <span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> +Rs. 1,200 (+0.5%)</span>
+            <span class="text-slate-500 font-mono">1 Tola (11.66g)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-emerald-400 hover:scale-[1.02] transition-all duration-300 group">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest">USD Interbank</span>
+          <div class="p-2 bg-emerald-400/10 rounded-xl text-emerald-400 group-hover:bg-emerald-400 group-hover:text-slate-950 transition-colors"><i data-lucide="dollar-sign" class="w-5 h-5"></i></div>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-2xl font-mono font-black text-white">Rs. 278.40</h3>
+          <div class="flex items-center justify-between mt-1 text-[11px]">
+            <span class="text-rose-400 font-bold flex items-center gap-1"><i data-lucide="trending-down" class="w-3.5 h-3.5"></i> -0.15 (-0.05%)</span>
+            <span class="text-slate-500 font-mono">SBP Official</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-blue-400 hover:scale-[1.02] transition-all duration-300 group">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest">PSX KSE-100</span>
+          <div class="p-2 bg-blue-400/10 rounded-xl text-blue-400 group-hover:bg-blue-400 group-hover:text-slate-950 transition-colors"><i data-lucide="line-chart" class="w-5 h-5"></i></div>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-2xl font-mono font-black text-white">78,450.20</h3>
+          <div class="flex items-center justify-between mt-1 text-[11px]">
+            <span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> +328.40 (+0.42%)</span>
+            <span class="text-slate-500 font-mono">High Volatility</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-rose-400 hover:scale-[1.02] transition-all duration-300 group">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-widest">Petrol Super</span>
+          <div class="p-2 bg-rose-400/10 rounded-xl text-rose-400 group-hover:bg-rose-400 group-hover:text-slate-950 transition-colors"><i data-lucide="fuel" class="w-5 h-5"></i></div>
+        </div>
+        <div class="mt-4">
+          <h3 class="text-2xl font-mono font-black text-white">Rs. 275.60</h3>
+          <div class="flex items-center justify-between mt-1 text-[11px]">
+            <span class="text-slate-400 font-bold flex items-center gap-1"><i data-lucide="minus" class="w-3.5 h-3.5"></i> Unchanged</span>
+            <span class="text-slate-500 font-mono">OGRA Rate</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MODERN NAVIGATION TABS -->
+    <div class="flex items-center justify-center">
+      <div class="bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/80 flex flex-wrap gap-2 max-w-4xl w-full shadow-2xl backdrop-blur-xl">
+        <button id="tab-rates" onclick="switchTab('rates')" class="flex-1 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center justify-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/25">
+          <i data-lucide="coins" class="w-4 h-4"></i>
+          <span>Live Market Rates</span>
+        </button>
+        <button id="tab-tax" onclick="switchTab('tax')" class="flex-1 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center justify-center space-x-2 bg-transparent text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <i data-lucide="calculator" class="w-4 h-4"></i>
+          <span>FBR Tax Engine</span>
+        </button>
+        <button id="tab-cost" onclick="switchTab('cost')" class="flex-1 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center justify-center space-x-2 bg-transparent text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <i data-lucide="package-check" class="w-4 h-4"></i>
+          <span>Customs Landed Cost</span>
+        </button>
+        <button id="tab-inflation" onclick="switchTab('inflation')" class="flex-1 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center justify-center space-x-2 bg-transparent text-slate-400 hover:text-white hover:bg-slate-900/60">
+          <i data-lucide="trending-up" class="w-4 h-4"></i>
+          <span>Inflation & Wealth Engine</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: LIVE MARKET RATES -->
+    <section id="view-rates" class="space-y-6">
+      
+      <div class="glass-card p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-slate-800">
+        <div>
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+            <span>Commodities & Forex Institutional Benchmarks</span>
+            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md uppercase font-mono">Live Feed</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Real-time valuation across Sarafa, Interbank, KIBOR, & Energy sector benchmarks.</p>
+        </div>
+        <div class="relative w-full sm:w-80">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="rate-search" onkeyup="filterRates()" placeholder="Filter Gold, USD, EUR, KSE-100..." class="w-full bg-slate-950/90 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors" />
+        </div>
+      </div>
+
+      <!-- RATES TABLE -->
+      <div class="glass-card rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-950/90 uppercase text-[10px] font-extrabold tracking-widest text-slate-400 border-b border-slate-800">
+              <tr>
+                <th class="py-4 px-6">Asset Class</th>
+                <th class="py-4 px-6">Benchmark Unit</th>
+                <th class="py-4 px-6">Current Price (PKR)</th>
+                <th class="py-4 px-6">24h Variance</th>
+                <th class="py-4 px-6 text-right">Market Status</th>
+              </tr>
+            </thead>
+            <tbody id="rates-table-body" class="divide-y divide-slate-800/60 font-medium">
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50"></span>
+                  <span>Gold 24K</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 Tola (11.66g)</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 242,500</td>
+                <td class="py-4 px-6 font-mono text-emerald-400">+ Rs. 1,200 (+0.50%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-500/20">Sarafa Active</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-amber-500 shadow-lg shadow-amber-500/50"></span>
+                  <span>Gold 22K</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 Tola (11.66g)</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 222,290</td>
+                <td class="py-4 px-6 font-mono text-emerald-400">+ Rs. 1,100 (+0.50%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-emerald-500/10 text-emerald-400 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-500/20">Sarafa Active</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-slate-300 shadow-lg shadow-slate-300/50"></span>
+                  <span>Silver 24K</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 Tola (11.66g)</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 2,850</td>
+                <td class="py-4 px-6 font-mono text-slate-400">0.00 (0.00%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-slate-800 text-slate-300 text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700">Sarafa Stable</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-blue-400 shadow-lg shadow-blue-400/50"></span>
+                  <span>US Dollar (USD)</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 USD</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 278.40</td>
+                <td class="py-4 px-6 font-mono text-rose-400">-0.15 (-0.05%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-500/20">SBP Interbank</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-indigo-400 shadow-lg shadow-indigo-400/50"></span>
+                  <span>Euro (EUR)</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 EUR</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 302.15</td>
+                <td class="py-4 px-6 font-mono text-emerald-400">+0.20 (+0.07%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-slate-800 text-slate-300 text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700">Interbank</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-purple-400 shadow-lg shadow-purple-400/50"></span>
+                  <span>British Pound (GBP)</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 GBP</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 358.90</td>
+                <td class="py-4 px-6 font-mono text-emerald-400">+0.45 (+0.12%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-slate-800 text-slate-300 text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700">Interbank</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-teal-400 shadow-lg shadow-teal-400/50"></span>
+                  <span>Saudi Riyal (SAR)</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 SAR</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 74.20</td>
+                <td class="py-4 px-6 font-mono text-slate-400">0.00 (0.00%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-slate-800 text-slate-300 text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700">Open Market</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50"></span>
+                  <span>UAE Dirham (AED)</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 AED</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 75.80</td>
+                <td class="py-4 px-6 font-mono text-emerald-400">+0.05 (+0.06%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-slate-800 text-slate-300 text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700">Open Market</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-900/50 transition-colors">
+                <td class="py-4 px-6 font-bold text-slate-100 flex items-center space-x-3">
+                  <span class="w-3 h-3 rounded-full bg-rose-400 shadow-lg shadow-rose-400/50"></span>
+                  <span>Petrol (Super)</span>
+                </td>
+                <td class="py-4 px-6 text-slate-400 font-mono">1 Litre</td>
+                <td class="py-4 px-6 font-mono font-extrabold text-emerald-400 text-sm">Rs. 275.60</td>
+                <td class="py-4 px-6 font-mono text-slate-400">0.00 (0.00%)</td>
+                <td class="py-4 px-6 text-right">
+                  <span class="bg-slate-800 text-slate-300 text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700">OGRA Benchmark</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: TAX & INCOME MATRIX -->
+    <section id="view-tax" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Controls -->
+        <div class="lg:col-span-5 glass-card p-6 rounded-2xl space-y-6 border border-slate-800">
+          <div>
+            <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+              <span>FBR Income Tax Intelligence</span>
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Automated tax slab calculation engine based on standard FBR tax guidelines.</p>
+          </div>
+
+          <!-- Income Type Switcher -->
+          <div class="space-y-2">
+            <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Tax Entity Category</label>
+            <div class="grid grid-cols-2 gap-2 p-1.5 bg-slate-950 rounded-xl border border-slate-800">
+              <button id="type-salaried" onclick="setIncomeType('salaried')" class="py-2.5 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 shadow-md">Salaried Person</button>
+              <button id="type-business" onclick="setIncomeType('business')" class="py-2.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">Business / Freelancer</button>
+            </div>
+          </div>
+
+          <!-- Active Filer Toggle -->
+          <div class="space-y-2">
+            <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">FBR Active Filer Status</label>
+            <div class="grid grid-cols-2 gap-3">
+              <button id="btn-filer" onclick="setFilerStatus(true)" class="py-3 bg-emerald-600 text-white font-black rounded-xl text-xs border border-emerald-500 shadow-lg shadow-emerald-600/20 transition-all">
+                Active Filer
+              </button>
+              <button id="btn-nonfiler" onclick="setFilerStatus(false)" class="py-3 bg-slate-900 text-slate-400 font-black rounded-xl text-xs border border-slate-800 transition-all">
+                Non-Filer
+              </button>
+            </div>
+          </div>
+
+          <!-- Monthly Income Input -->
+          <div class="space-y-2">
+            <label for="tax-income" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Gross Monthly Income (PKR)</label>
+            <div class="relative">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 font-mono">Rs.</span>
+              <input type="number" id="tax-income" oninput="calculateTax()" value="250000" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl pl-12 pr-4 py-3 text-sm font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500 transition-colors" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Summary Card -->
+        <div class="lg:col-span-7 glass-card p-6 rounded-2xl flex flex-col justify-between space-y-6 border border-slate-800">
+          <div class="space-y-5">
+            <h3 class="text-sm font-extrabold text-white border-b border-slate-800 pb-3 flex items-center justify-between">
+              <span>Tax Deduction Summary</span>
+              <span class="text-[11px] font-mono text-slate-400">Finance Act Slabs</span>
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Effective Tax Rate</span>
+                <p id="res-tax-rate" class="text-2xl font-mono font-black text-amber-400 mt-1">2.5%</p>
+              </div>
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Monthly Deduction</span>
+                <p id="res-tax-monthly" class="text-2xl font-mono font-black text-rose-400 mt-1">Rs. 6,250</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Annual Tax Payable</span>
+                <p id="res-tax-annual" class="text-xl font-mono font-bold text-slate-200 mt-1">Rs. 75,000</p>
+              </div>
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80">
+                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Annual Gross Salary</span>
+                <p id="res-gross-annual" class="text-xl font-mono font-bold text-slate-200 mt-1">Rs. 3,000,000</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-950/90 p-5 rounded-xl border border-emerald-500/30">
+              <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Net Monthly Take-Home Salary</span>
+              <p id="res-net-income" class="text-3xl font-mono font-black text-emerald-400 mt-1">Rs. 243,750</p>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 flex items-center space-x-2 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
+            <i data-lucide="info" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+            <span>Calculated automatically based on FBR Tax Slabs. Non-filers are subject to higher penalty brackets.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 3: LANDED COST ENGINE -->
+    <section id="view-cost" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Controls -->
+        <div class="lg:col-span-6 glass-card p-6 rounded-2xl space-y-5 border border-slate-800">
+          <div>
+            <h2 class="text-base font-extrabold text-white">Commercial Customs & Landed Cost Suite</h2>
+            <p class="text-xs text-slate-400 mt-1">Complete import valuation: Exchange Rate, Duties, Sales Tax (GST), WHT & Margin.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="cost-base" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Invoice Value (USD)</label>
+                <input type="number" id="cost-base" oninput="calculateLandedCost()" value="1000" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+              <div>
+                <label for="cost-exchange" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">USD Exchange Rate (PKR)</label>
+                <input type="number" id="cost-exchange" oninput="calculateLandedCost()" value="278.40" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label for="cost-duty" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Customs Duty (%)</label>
+                <input type="number" id="cost-duty" oninput="calculateLandedCost()" value="11" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+              <div>
+                <label for="cost-gst" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Sales Tax GST (%)</label>
+                <input type="number" id="cost-gst" oninput="calculateLandedCost()" value="18" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+              <div>
+                <label for="cost-wht" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Import WHT (%)</label>
+                <input type="number" id="cost-wht" oninput="calculateLandedCost()" value="5.5" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="cost-freight" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Freight & Clearing (PKR)</label>
+                <input type="number" id="cost-freight" oninput="calculateLandedCost()" value="25000" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+              <div>
+                <label for="cost-margin" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Target Margin (%)</label>
+                <input type="number" id="cost-margin" oninput="calculateLandedCost()" value="20" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Breakdown Card -->
+        <div class="lg:col-span-6 glass-card p-6 rounded-2xl flex flex-col justify-between space-y-6 border border-slate-800">
+          <div class="space-y-4">
+            <h3 class="text-sm font-extrabold text-white border-b border-slate-800 pb-3">Landed Cost & Margin Matrix</h3>
+
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold">Base Invoice Value</span>
+                <p id="res-base-pkr" class="text-sm font-mono font-bold text-slate-200 mt-1">Rs. 278,400</p>
+              </div>
+              <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold">Total Duties & Taxes</span>
+                <p id="res-total-duties" class="text-sm font-mono font-bold text-rose-400 mt-1">Rs. 96,048</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-950/90 p-5 rounded-xl border border-slate-800 space-y-1">
+              <span class="text-[10px] text-slate-400 uppercase font-bold">Total Landed Shipment Cost</span>
+              <p id="res-landed-cost" class="text-3xl font-mono font-black text-amber-400">Rs. 399,448</p>
+            </div>
+
+            <div class="bg-slate-950/90 p-5 rounded-xl border border-emerald-500/30 space-y-1">
+              <span class="text-[10px] text-slate-400 uppercase font-bold">Recommended RRP (Target Profit)</span>
+              <p id="res-rrp" class="text-3xl font-mono font-black text-emerald-400">Rs. 479,338</p>
+            </div>
+          </div>
+
+          <div class="p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 text-[11px] text-slate-400">
+            Valuation Formula: <span class="font-mono text-slate-300">(Invoice in PKR) + Duty + GST + WHT + Freight + Margin</span>.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 4: INFLATION & WEALTH ENGINE -->
+    <section id="view-inflation" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Controls -->
+        <div class="lg:col-span-5 glass-card p-6 rounded-2xl space-y-5 border border-slate-800">
+          <div>
+            <h2 class="text-base font-extrabold text-white">Purchasing Power & Asset Erosion Engine</h2>
+            <p class="text-xs text-slate-400 mt-1">Simulate real-terms erosion of cash reserves adjusted for Pakistan CPI inflation.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="inf-amount" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Starting Cash Reserve (PKR)</label>
+              <input type="number" id="inf-amount" oninput="calculateInflation()" value="1000000" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+            </div>
+
+            <div>
+              <label for="inf-rate" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Estimated Annual Inflation Rate (%)</label>
+              <input type="number" id="inf-rate" oninput="calculateInflation()" value="12" class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono font-bold text-emerald-400 focus:outline-none focus:border-emerald-500" />
+            </div>
+
+            <div>
+              <label for="inf-years" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Time Horizon (Years)</label>
+              <input type="range" id="inf-years" min="1" max="10" value="3" oninput="document.getElementById('inf-years-val').innerText = this.value; calculateInflation();" class="w-full accent-emerald-500 cursor-pointer" />
+              <div class="text-right text-xs font-mono font-bold text-emerald-400 mt-1"><span id="inf-years-val">3</span> Year(s) Horizon</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Card -->
+        <div class="lg:col-span-7 glass-card p-6 rounded-2xl flex flex-col justify-between space-y-6 border border-slate-800">
+          <div class="space-y-4">
+            <h3 class="text-sm font-extrabold text-white border-b border-slate-800 pb-3">Purchasing Power Analysis</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-bold">Future Nominal Value</span>
+                <p id="res-inf-nominal" class="text-2xl font-mono font-black text-slate-200 mt-1">Rs. 1,000,000</p>
+              </div>
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-bold">Real Purchasing Power</span>
+                <p id="res-inf-real" class="text-2xl font-mono font-black text-rose-400 mt-1">Rs. 711,780</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-950/90 p-5 rounded-xl border border-rose-500/30">
+              <span class="text-[10px] text-slate-400 uppercase font-bold">Inflation Wealth Loss</span>
+              <p id="res-inf-loss" class="text-3xl font-mono font-black text-rose-500 mt-1">- Rs. 288,220</p>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 flex items-center space-x-2 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span>Demonstrates actual capital decay adjusted for annual compound consumer inflation rates.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center space-x-2">
+        <span class="font-mono font-bold text-slate-300">AURA Intelligence Terminal</span>
+        <span>&copy; 2026. All rights reserved.</span>
+      </div>
+      <div class="flex space-x-6 text-[11px] text-slate-400">
+        <span>SBP Benchmarks</span>
+        <span>FBR Slabs Compliant</span>
+        <span>OGRA Fuel Rates</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script JS -->
+  <script src="script.js"></script>
+</body>
+</html>
